@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
 import Navigation from "./components/Navigation";
+import Uploader from "./components/Uploader";
+import {Container} from "semantic-ui-react";
+
+import 'semantic-ui-css/semantic.min.css';
 
 const App = () => (
-    <div>
+    <Container textAlign="center">
         <Navigation/>
-    </div>
+        <Uploader/>
+    </Container>
 );
 
 export {App as default}
