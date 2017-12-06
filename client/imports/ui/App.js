@@ -7,6 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 
 import Navigation from "./components/Navigation";
 import MainScreen from "../screens/MainScreen";
+import EditorScreen from "../screens/EditorScreen";
 
 const App = () => (
     <BrowserRouter>
@@ -14,6 +15,7 @@ const App = () => (
             <Navigation/>
             <Switch>
                 <Route exact path="/" component={MainScreen}/>
+                <Route path="/editor" component={EditorScreen}/>
             </Switch>
         </Container>
     </BrowserRouter>

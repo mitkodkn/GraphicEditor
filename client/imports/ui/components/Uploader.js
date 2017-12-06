@@ -2,6 +2,7 @@ import React, {Component} from "react";
 
 import Dropzone from "react-dropzone";
 import {Button, Header, Icon, Message, Segment} from "semantic-ui-react";
+import {isEmpty} from "lodash";
 
 export default class Uploader extends Component {
     constructor(props) {
@@ -16,13 +17,18 @@ export default class Uploader extends Component {
     }
 
     upload() {
+        this.setState({error: false});
         this.dropzoneRef.open();
     }
 
-    handleDrop(accepted, rejected) {
-        if (rejected) {
-            this.setState({error: true});
+    handleDrop(accepted) {
+        let error = false;
+
+        if (isEmpty(accepted)) {
+            error = true;
         }
+
+        this.setState({error});
     }
 
     render() {
@@ -36,6 +42,7 @@ export default class Uploader extends Component {
                 }
                 <Segment textAlign="center" attached="bottom">
                     <Dropzone
+                        onDragEnter={this.onDragEnter}
                         accept="image/jpeg, image/png"
                         ref={(node) => {
                             this.dropzoneRef = node;
