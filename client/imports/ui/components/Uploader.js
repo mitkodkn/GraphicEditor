@@ -3,13 +3,16 @@ import React, {Component} from "react";
 import Dropzone from "react-dropzone";
 import {Button, Header, Icon, Message, Segment} from "semantic-ui-react";
 import {isEmpty} from "lodash";
+import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
-export default class Uploader extends Component {
+class Uploader extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             error: false,
+            uploaded: false,
         };
 
         this.handleDrop = this.handleDrop.bind(this);
@@ -26,12 +29,22 @@ export default class Uploader extends Component {
 
         if (isEmpty(accepted)) {
             error = true;
+        } else {
+            this.props.setImage(accepted[0]);
+            this.setState({
+                error,
+                uploaded: true,
+            });
         }
 
         this.setState({error});
     }
 
     render() {
+        if (this.state.uploaded) {
+            return <Redirect to="/editor"/>;
+        }
+
         return (
             <span>
                 {this.state.error &&
@@ -55,8 +68,21 @@ export default class Uploader extends Component {
                     </Dropzone>
                 </Segment>
                 <Button basic content="Upload your image" icon="upload" labelPosition="left" onClick={this.upload}/>
+                {this.props.image}
             </span>
         );
     }
 }
 
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+    setImage: image => {
+        dispatch({
+            type: 'SET_IMAGE',
+            payload: image,
+        })
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Uploader);

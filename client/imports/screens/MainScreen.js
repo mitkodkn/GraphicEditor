@@ -2,9 +2,7 @@ import React from "react";
 import Uploader from "../ui/components/Uploader";
 
 const MainScreen = () => (
-    <span>
-        <Uploader/>
-    </span>
+    <Uploader/>
 );
 
 export {MainScreen as default}
