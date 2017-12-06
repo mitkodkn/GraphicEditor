@@ -9,14 +9,14 @@ import Navigation from "./components/Navigation";
 import MainScreen from "../screens/MainScreen";
 
 const App = () => (
-    <Container textAlign="center">
-        <Navigation/>
-        <BrowserRouter>
+    <BrowserRouter>
+        <Container textAlign="center">
+            <Navigation/>
             <Switch>
                 <Route exact path="/" component={MainScreen}/>
             </Switch>
-        </BrowserRouter>
-    </Container>
+        </Container>
+    </BrowserRouter>
 );
 
 export {App as default}

@@ -34,7 +34,7 @@ export default class Uploader extends Component {
                     <p>You tried to upload an unsupported file format</p>
                 </Message>
                 }
-                <Segment textAlign="center">
+                <Segment textAlign="center" attached="bottom">
                     <Dropzone
                         accept="image/jpeg, image/png"
                         ref={(node) => {
