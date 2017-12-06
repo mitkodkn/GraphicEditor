@@ -1,11 +1,15 @@
 import React, {Component} from "react";
 
 import Dropzone from "react-dropzone";
-import {Button, Header, Icon, Segment} from "semantic-ui-react";
+import {Button, Header, Icon, Message, Segment} from "semantic-ui-react";
 
 export default class Uploader extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            error: false,
+        };
 
         this.handleDrop = this.handleDrop.bind(this);
         this.upload = this.upload.bind(this);
@@ -16,13 +20,20 @@ export default class Uploader extends Component {
     }
 
     handleDrop(accepted, rejected) {
-        console.log(accepted);
-        console.log(rejected);
+        if (rejected) {
+            this.setState({error: true});
+        }
     }
 
     render() {
         return (
             <span>
+                {this.state.error &&
+                <Message negative>
+                    <Message.Header>Invalid file format</Message.Header>
+                    <p>You tried to upload an unsupported file format</p>
+                </Message>
+                }
                 <Segment textAlign="center">
                     <Dropzone
                         accept="image/jpeg, image/png"
