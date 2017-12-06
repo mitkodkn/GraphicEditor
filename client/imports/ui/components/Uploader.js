@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 import Dropzone from "react-dropzone";
-import {Button, Header, Segment} from "semantic-ui-react";
+import {Button, Header, Icon, Segment} from "semantic-ui-react";
 
 export default class Uploader extends Component {
     constructor(props) {
@@ -31,6 +31,8 @@ export default class Uploader extends Component {
                         }}
                         style={{position: "relative"}}
                         onDrop={this.handleDrop}>
+                        <br/>
+                        <Icon name="file image outline" size="massive"/>
                         <Header>Drag your image here</Header>
                     </Dropzone>
                 </Segment>
