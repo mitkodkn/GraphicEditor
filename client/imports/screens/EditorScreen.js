@@ -9,6 +9,7 @@ import {calculateAspectRatioFit} from "../Utils";
 import {find} from "lodash";
 
 import Greyscale from "../filters/Greyscale";
+import Brightness from "../filters/Brightness";
 
 class EditorScreen extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class EditorScreen extends Component {
 
         this.initFilter = this.initFilter.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
+        this.onBrightnessChange = this.onBrightnessChange.bind(this);
     }
 
     componentDidMount() {
@@ -31,7 +33,8 @@ class EditorScreen extends Component {
                 ctx.drawImage(this.image, 0, 0, width, height);
 
                 this.filters = [
-                    this.initFilter(Greyscale).instance
+                    this.initFilter(Greyscale).instance,
+                    this.initFilter(Brightness).instance
                 ];
             };
 
@@ -48,8 +51,13 @@ class EditorScreen extends Component {
     }
 
     applyFilter(filterName) {
+        const args = Array.from(arguments).slice(1);
         const filter = find(this.filters, f => f.name === filterName);
-        filter.execute();
+        filter.execute.apply(filter, args);
+    }
+
+    onBrightnessChange(value) {
+        this.applyFilter('Brightness', value);
     }
 
     render() {
@@ -68,8 +76,14 @@ class EditorScreen extends Component {
                         <Grid.Column width={6}>
                     <span>
                         <h3>Controls</h3>
-                        <Slider/>
-                        <Button onClick={() => this.applyFilter('Greyscale')}>Do shit</Button>
+                        <Slider
+                            min={0}
+                            max={20}
+                            step={1}
+                            onChange={this.onBrightnessChange}
+                        />
+                        <Button onClick={() => this.applyFilter('Greyscale')}>Greyscale</Button>
+                        <Button onClick={() => this.applyFilter('Threshold')}>Threshold</Button>
                     </span>
                         </Grid.Column>
                     </Grid.Row>
