@@ -1,6 +1,6 @@
 import Filter from "./Filter";
 
-export default class Greyscale extends Filter {
+export default class Brightness extends Filter {
     constructor(image, canvas, width, height) {
         super(image, canvas, width, height);
         this.name = 'Brightness';
@@ -16,9 +16,6 @@ export default class Greyscale extends Filter {
         }
 
         this.previousValue = Math.abs(value);
-
-        console.log(value);
-        console.log(this.previousValue);
 
         for (let i = 0; i < data.length; i += 4) {
             data[i] += value;

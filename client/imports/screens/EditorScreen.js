@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {Button, Grid, Segment} from "semantic-ui-react";
+import {Button, Divider, Grid, Segment} from "semantic-ui-react";
 import Slider from "rc-slider";
 
 import "rc-slider/assets/index.css";
@@ -10,6 +10,8 @@ import {find} from "lodash";
 
 import Greyscale from "../filters/Greyscale";
 import Brightness from "../filters/Brightness";
+import Threshold from "../filters/Threshold";
+import Convolute from "../filters/Convolute";
 
 class EditorScreen extends Component {
     constructor(props) {
@@ -34,7 +36,9 @@ class EditorScreen extends Component {
 
                 this.filters = [
                     this.initFilter(Greyscale).instance,
-                    this.initFilter(Brightness).instance
+                    this.initFilter(Brightness).instance,
+                    this.initFilter(Threshold).instance,
+                    this.initFilter(Convolute).instance,
                 ];
             };
 
@@ -76,14 +80,39 @@ class EditorScreen extends Component {
                         <Grid.Column width={6}>
                     <span>
                         <h3>Controls</h3>
+                        <h4>Brightness</h4>
                         <Slider
                             min={0}
                             max={20}
                             step={1}
                             onChange={this.onBrightnessChange}
                         />
-                        <Button onClick={() => this.applyFilter('Greyscale')}>Greyscale</Button>
-                        <Button onClick={() => this.applyFilter('Threshold')}>Threshold</Button>
+                        <h3>Filter Effects</h3>
+                        <Divider/>
+                        <Button.Group vertical>
+                        <Button size="massive" onClick={() => this.applyFilter('Greyscale')}>Greyscale</Button>
+                            <br/>
+                            <Button size="massive" basic onClick={() => this.applyFilter('Threshold')}
+                                    secondary>Threshold</Button>
+                            <br/>
+                            <Button size="massive" basic color="blue" onClick={() => this.applyFilter('Convolute',
+                                [
+                                    0, -1, 0,
+                                    -1, 5, -1,
+                                    0, -1, 0
+                                ], false)}>
+                                Sharpen
+                            </Button>
+                            <br/>
+                            <Button size="massive" basic color="red" onClick={() => this.applyFilter('Convolute',
+                                [
+                                    1 / 9, 1 / 9, 1 / 9,
+                                    1 / 9, 1 / 9, 1 / 9,
+                                    1 / 9, 1 / 9, 1 / 9
+                                ], false)}>
+                                Blur
+                            </Button>
+                        </Button.Group>
                     </span>
                         </Grid.Column>
                     </Grid.Row>
