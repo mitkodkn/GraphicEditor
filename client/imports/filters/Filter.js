@@ -8,12 +8,5 @@ export default class Filter {
 
         this.ctx = this.canvas.getContext('2d');
         this.pixels = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-        console.log(this.image);
-        console.log(this.canvas);
-        console.log(this.width);
-        console.log(this.height);
-        console.log(this.ctx);
-        console.log(this.pixels);
     }
 }
