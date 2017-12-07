@@ -11,11 +11,14 @@ import MainScreen from "../screens/MainScreen";
 import EditorScreen from "../screens/EditorScreen";
 
 import store from "../../store";
+import Logo from "./components/Logo";
 
 const App = () => (
     <Provider store={store}>
         <BrowserRouter>
             <Container textAlign="center">
+                <Logo/>
+                <h1>Enhancing Filters</h1>
                 <Navigation/>
                 <Switch>
                     <Route exact path="/" component={MainScreen}/>
