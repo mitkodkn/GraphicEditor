@@ -3,21 +3,17 @@ export default class Filter {
         this.image = image;
         this.canvas = canvas;
 
-        this.canvas.width = width;
-        this.canvas.height = height;
+        this.width = width;
+        this.height = height;
 
         this.ctx = this.canvas.getContext('2d');
-        this.ctx.drawImage(this.image);
-        this.pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        this.pixels = this.ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+        console.log(this.image);
+        console.log(this.canvas);
+        console.log(this.width);
+        console.log(this.height);
+        console.log(this.ctx);
+        console.log(this.pixels);
     }
-
-    filterImage(filter, image, var_args) {
-        const args = [this.getPixels(image)];
-
-        for (let i = 2; i < arguments.length; i++) {
-            args.push(arguments[i]);
-        }
-
-        return filter.apply(null, args);
-    };
 }
